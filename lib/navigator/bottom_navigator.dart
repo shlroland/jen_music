@@ -20,9 +20,9 @@ class _BottomNavigatorState extends State<BottomNavigator> {
         type: BottomNavigationBarType.fixed,
         selectedItemColor: _activeColor,
         items: [
-          _bottomItem('首页', Icons.umbrella),
+          _bottomItem('首页', Icons.home),
           _bottomItem('搜索', Icons.search_outlined),
-          _bottomItem('歌单', Icons.headset_rounded),
+          _bottomItem('歌单', Icons.whatshot_outlined),
           _bottomItem('我的', Icons.person_outlined),
         ],
       ),
@@ -34,7 +34,10 @@ class _BottomNavigatorState extends State<BottomNavigator> {
     IconData icon,
   ) {
     return BottomNavigationBarItem(
-        icon: Icon(icon),
+        icon: Icon(
+          icon,
+          color: _defaultColor,
+        ),
         activeIcon: Icon(icon, color: _activeColor),
         label: title);
   }
