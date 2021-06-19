@@ -4,9 +4,11 @@ import 'package:get/get.dart';
 import 'package:jen_music/global/global_theme.dart';
 import 'package:jen_music/routes/app_routes.dart';
 
+import 'global/global_binding.dart';
+
 void main() {
   var theme;
-
+  GlobalBinding().dependencies();
   theme = lightTheme;
   runApp(ScreenUtilInit(
     builder: () => GetMaterialApp(

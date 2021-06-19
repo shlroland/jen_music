@@ -5,6 +5,7 @@ import 'package:jen_music/widget/preload_page_view.dart';
 class HomeController extends SuperController {
   PreloadPageController pageController;
   final pages = [FindView()];
+  final items = ['我的', '首页'];
   @override
   void onDetached() {
     // TODO: implement onDetached
