@@ -1,9 +1,12 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:jen_music/pages/find/find_controller.dart';
 import 'package:jen_music/utils/jen_utils.dart';
+import 'package:jen_music/widget/preload_page_view.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class FindView extends GetView<FindController> {
@@ -168,7 +171,67 @@ class FindView extends GetView<FindController> {
                       ),
                     ),
                     visible: orientation == Orientation.portrait,
-                  ))
+                  )),
+                  SliverToBoxAdapter(
+                      child: orientation == Orientation.portrait
+                          ? Container(
+                              height: 180,
+                              child: PreloadPageView.builder(
+                                controller: controller.pageController,
+                                itemBuilder: (context, index) {
+                                  /// TODO 准备替换obx
+                                  return ListView.builder(
+                                    scrollDirection: Axis.horizontal,
+                                    shrinkWrap: true,
+                                    itemExtent: (MediaQuery.of(Get.context)
+                                            .size
+                                            .width) /
+                                        3,
+
+                                    ///  TODO controller.sheet.length
+                                    itemCount: 3,
+                                    itemBuilder: (context, index1) {
+                                      return _sheetItem(
+                                          orientation: orientation);
+                                    },
+                                  );
+                                },
+                                itemCount: 2,
+                              ),
+                            )
+                          : Container(
+                              height: 180.0,
+                              child: ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                shrinkWrap: true,
+                                padding: EdgeInsets.all(0.0),
+                                itemBuilder: (context, index) {
+                                  return _sheetItem(orientation: orientation);
+                                },
+                              ))),
+                  const SliverToBoxAdapter(
+                    child: Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 8.0, vertical: 10.0),
+                      child: Text(
+                        "新歌推荐",
+                        style: TextStyle(
+                            fontSize: 16.0, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ),
+                  SliverToBoxAdapter(
+                    child: ListView.builder(
+                      padding: EdgeInsets.all(0.0),
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemBuilder: (context, index) {
+                        return _newSongItem(index);
+                      },
+                      itemExtent: 110.0,
+                      itemCount: 20,
+                    ),
+                  )
                 ],
               ),
             );
@@ -237,5 +300,109 @@ class FindView extends GetView<FindController> {
             ],
           ),
         ));
+  }
+
+// http://p3.music.126.net/P4BySxDoTuWlOPQbLvcaMQ==/109951166099769706.jpg
+  Widget _sheetItem({Orientation orientation}) {
+    return Container(
+      width: orientation == Orientation.portrait
+          ? (MediaQuery.of(Get.context).size.width - 10) * 3
+          : (MediaQuery.of(Get.context).size.width - 10) * 6,
+      alignment: Alignment.center,
+      child: Card(
+        child: InkWell(
+          child: Container(
+            width: 120,
+            height: 170,
+            child: Wrap(
+              direction: Axis.vertical,
+              children: [
+                Hero(
+                    tag: 'P4BySxDoTuWlOPQbLvcaMQ',
+                    child: CachedNetworkImage(
+                      height: 120,
+                      width: 120,
+                      fit: BoxFit.cover,
+                      imageUrl:
+                          'https://p3.music.126.net/P4BySxDoTuWlOPQbLvcaMQ==/109951166099769706.jpg',
+                    )),
+                Container(
+                  height: 45.0,
+                  alignment: Alignment.center,
+                  constraints: BoxConstraints(maxWidth: 110.0),
+                  child: Text("当你烦恼是",
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(fontSize: 14.0)),
+                )
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _newSongItem(index) {
+    return InkWell(
+      child: Container(
+        height: 110,
+        padding: EdgeInsets.symmetric(horizontal: 2.0, vertical: 5.0),
+        child: Row(
+          children: [
+            Container(
+              margin: EdgeInsets.only(right: 6.0),
+              height: 100.0,
+              width: 110.0,
+              child: Card(
+                child: CachedNetworkImage(
+                  height: 100.0,
+                  width: 110.0,
+                  fit: BoxFit.cover,
+                  imageUrl:
+                      'https://p2.music.126.net/EAC2X_nM8l0t9onQMkAfeQ==/109951166004498861.jpg?param=300y300',
+                ),
+              ),
+            ),
+            Expanded(
+                child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 8.0),
+              child: Column(
+                children: [
+                  Container(
+                    height: 38,
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      '米津玄师专辑',
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(fontSize: 16.0),
+                    ),
+                  ),
+                  Container(
+                    height: 30,
+                    alignment: Alignment.centerLeft,
+                    child: Text('米津玄师',
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style:
+                            TextStyle(fontSize: 14.0, color: Colors.grey[500])),
+                  ),
+                  Container(
+                    height: 30,
+                    alignment: Alignment.centerLeft,
+                    child: Text("时长：20",
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style:
+                            TextStyle(fontSize: 14.0, color: Colors.grey[500])),
+                  )
+                ],
+              ),
+            ))
+          ],
+        ),
+      ),
+    );
   }
 }
