@@ -4,6 +4,7 @@ import 'package:jen_music/widget/preload_page_view.dart';
 
 class HomeController extends SuperController {
   PreloadPageController pageController;
+  var miniPlayView = false;
   final pages = [FindView()];
   final items = ['我的', '首页'];
   @override

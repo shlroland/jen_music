@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jen_music/pages/home/home_controller.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jen_music/widget/play_widget/play_widget_view.dart';
 import 'package:jen_music/widget/preload_page_view.dart';
 
