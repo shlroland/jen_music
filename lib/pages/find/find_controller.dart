@@ -6,7 +6,9 @@ class FindController extends GetxController {
   RefreshController refreshController;
   PreloadPageController pageController;
   final currentIndexPage = 0.obs;
-  // static FindController get to => Get.find();
+  bool isLoad = false;
+  
+  static FindController get to => Get.find();
 
   @override
   void onInit() {

@@ -9,8 +9,11 @@ class UserController extends GetxController {
   final isNoCollect = false.obs;
   final privacy = false.obs;
   RefreshController refreshController;
+  bool isLoad = false;
 
-@override
+  static UserController get to => Get.find();
+
+  @override
   void onInit() {
     refreshController = RefreshController();
     super.onInit();

@@ -262,7 +262,7 @@ class UserView extends GetView<UserController> {
                   width: 42,
                   height: 42,
                   imageUrl:
-                      'https://p4.music.126.net/ENB8JqAjS4VhiVKFRMuA4A==/109951166080662923.jpg?param=100y100',
+                      'http://p4.music.126.net/ENB8JqAjS4VhiVKFRMuA4A==/109951166080662923.jpg?param=100y100',
                 ),
               ),
             ),

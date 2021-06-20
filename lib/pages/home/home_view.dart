@@ -54,13 +54,18 @@ class HomeView extends GetView<HomeController> {
                       child: Text(
                         controller.items[index],
                         style: TextStyle(
-                          fontSize: 16,
-                        ),
+                            color: controller.currentIndex == index
+                                ? Theme.of(context).bottomAppBarColor
+                                : Colors.grey,
+                            fontSize: 16,
+                            fontWeight: controller.currentIndex == index
+                                ? FontWeight.bold
+                                : FontWeight.w500),
                         textAlign: TextAlign.center,
                       ),
                     ),
                   ),
-                  onTap: () => {},
+                  onTap: () => controller.changeIndex(index),
                 );
               },
               itemCount: controller.items.length,
